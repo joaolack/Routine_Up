@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "76274177509",
+    "project_id": "routineup-a17c7",
+    "storage_bucket": "routineup-a17c7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76274177509:android:b7b346075b2f1157b08b0c",
+        "android_client_info": {
+          "package_name": "com.example.routineup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNvAUR1xCFVKkdN2nBpcDNuXpeJzZFhhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
