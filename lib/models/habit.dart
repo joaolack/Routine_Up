@@ -17,9 +17,7 @@ class Habit {
     required this.createdAt,
   });
 
-  // fromMap mais robusto — trata Timestamp, int (ms), String e null
   factory Habit.fromMap(Map<String, dynamic> data, {String? id}) {
-    // pega o valor bruto
     final raw = data['createdAt'];
 
     DateTime createdAt;
@@ -27,13 +25,10 @@ class Habit {
     if (raw == null) {
       createdAt = DateTime.now();
     } else if (raw is Timestamp) {
-      // Timestamp do Firestore
       createdAt = raw.toDate();
     } else if (raw is int) {
-      // timestamp em milissegundos
       createdAt = DateTime.fromMillisecondsSinceEpoch(raw);
     } else if (raw is String) {
-      // string parseável
       createdAt = DateTime.tryParse(raw) ?? DateTime.now();
     } else if (raw is DateTime) {
       createdAt = raw;
@@ -52,14 +47,13 @@ class Habit {
   }
 
   Map<String, dynamic> toMap() {
-    // Ao enviar para o Firestore, é ok mandar DateTime — o pacote converte para Timestamp.
     return {
       'id': id,
       'name': name,
       'description': description,
       'targetDays': targetDays,
       'completedDays': completedDays,
-      'createdAt': createdAt, // Firestore SDK aceita DateTime
+      'createdAt': createdAt,
     };
   }
 

@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'login_screen.dart';
 import 'home_screen.dart';
-import 'register_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmController = TextEditingController();
+
   bool _isLoading = false;
   String? _errorMessage;
 
-  Future<void> _login() async {
+  Future<void> _register() async {
+    if (_passwordController.text.trim() != _confirmController.text.trim()) {
+      setState(() => _errorMessage = "As senhas não coincidem.");
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -56,21 +63,16 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(32),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.auto_awesome,
-                  size: 80,
-                  color: Colors.white,
-                ),
+                const Icon(Icons.person_add_alt_1,
+                    size: 80, color: Colors.white),
                 const SizedBox(height: 16),
                 const Text(
-                  'RoutineUp',
+                  "Criar Conta",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -105,12 +107,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 16),
+
+                TextField(
+                  controller: _confirmController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.9),
+                    prefixIcon: const Icon(Icons.lock_reset),
+                    hintText: 'Confirmar senha',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+
                 const SizedBox(height: 20),
 
                 _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : ElevatedButton(
-                        onPressed: _login,
+                        onPressed: _register,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: const Color(0xFF007AFF),
@@ -121,19 +140,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         child: const Text(
-                          'Entrar',
+                          "Cadastrar",
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
+
                 const SizedBox(height: 16),
 
                 if (_errorMessage != null)
                   Text(
                     _errorMessage!,
-                    style: const TextStyle(color: Colors.redAccent),
+                    style:
+                        const TextStyle(color: Colors.redAccent, fontSize: 14),
                     textAlign: TextAlign.center,
                   ),
 
@@ -141,22 +160,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => const RegisterScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
                     );
                   },
                   child: const Text(
-                    'Não tem conta? Cadastre-se',
+                    "Já tem conta? Entrar",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                       decoration: TextDecoration.underline,
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),

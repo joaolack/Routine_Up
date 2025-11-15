@@ -36,6 +36,13 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/login');
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: "Meu perfil",
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+          ),
         ],
       ),
 
@@ -85,7 +92,6 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: Row(
                       children: [
-                        // Ícone de progresso
                         CircleAvatar(
                           radius: 28,
                           backgroundColor: progress >= 1
@@ -99,7 +105,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 16),
 
-                        // Informações principais
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +127,6 @@ class HomeScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
 
-                              // Barra de progresso
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: LinearProgressIndicator(
@@ -155,18 +159,18 @@ class HomeScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.blueAccent, // cor do botão
+        backgroundColor: Colors.blueAccent, 
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const HabitFormScreen()),
           );
         },
-        icon: const Icon(Icons.add, color: Colors.white), // cor do ícone
+        icon: const Icon(Icons.add, color: Colors.white), 
         label: const Text(
           'Novo hábito',
           style: TextStyle(
-            color: Colors.white, // 👈 cor da fonte
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),

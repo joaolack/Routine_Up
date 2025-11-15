@@ -23,7 +23,6 @@ class _HabitDetailScreenState extends State<HabitDetailScreen> {
     habit = widget.habit;
   }
 
-  // 🟩 Função: marcar um dia como concluído
   Future<void> _markDayCompleted() async {
     if (habit.completedDays < habit.targetDays) {
       setState(() {
@@ -44,7 +43,6 @@ class _HabitDetailScreenState extends State<HabitDetailScreen> {
     }
   }
 
-  // 🟥 Função: excluir hábito
   Future<void> _deleteHabit() async {
     final confirm = await showDialog<bool>(
       context: context,
@@ -76,7 +74,6 @@ class _HabitDetailScreenState extends State<HabitDetailScreen> {
     }
   }
 
-  // ✏️ Ir para tela de edição
   void _editHabit() async {
     await Navigator.push(
       context,
@@ -94,35 +91,110 @@ class _HabitDetailScreenState extends State<HabitDetailScreen> {
     final progress = habit.completedDays / habit.targetDays;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(habit.name),
+        title: Text(
+          habit.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.blueAccent,
         actions: [
           IconButton(icon: const Icon(Icons.edit), onPressed: _editHabit),
           IconButton(icon: const Icon(Icons.delete), onPressed: _deleteHabit),
         ],
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Descrição:', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 4),
-            Text(habit.description ?? 'Sem descrição.'),
+
+            Card(
+              elevation: 3,
+              shadowColor: Colors.black12,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: const [
+                        Icon(Icons.description, color: Colors.blue, size: 22),
+                        SizedBox(width: 8),
+                        Text(
+                          'Descrição',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      habit.description?.isNotEmpty == true
+                          ? habit.description!
+                          : 'Sem descrição.',
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
             const SizedBox(height: 24),
 
-            Text('Progresso:', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            LinearProgressIndicator(value: progress),
-            const SizedBox(height: 8),
-            Text('${habit.completedDays}/${habit.targetDays} dias'),
+            Text(
+              'Progresso',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 12,
+                backgroundColor: Colors.grey[300],
+                color: Colors.green,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+            Text(
+              '${habit.completedDays}/${habit.targetDays} dias',
+              style: const TextStyle(fontSize: 16),
+            ),
 
             const Spacer(),
-            ElevatedButton.icon(
-              onPressed: _markDayCompleted,
-              icon: const Icon(Icons.check),
-              label: const Text('Marcar dia como concluído'),
-              style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _markDayCompleted,
+                icon: const Icon(Icons.check, size: 26),
+                label: const Text(
+                  'Marcar dia como concluído',
+                  style: TextStyle(fontSize: 17),
+                ),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 55),
+                  backgroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

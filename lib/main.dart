@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:routineup/screens/user_profile_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
-import 'firebase_options.dart'; // gerado pelo comando flutterfire configure
+import 'firebase_options.dart'; 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.blueAccent,
         ),
       ),
-      // 🔥 Redirecionamento dinâmico conforme login
+
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -37,15 +38,16 @@ class MyApp extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return const HomeScreen(); // logado
+            return const HomeScreen(); 
           } else {
-            return const LoginScreen(); // deslogado
+            return const LoginScreen();
           }
         },
       ),
       routes: {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
+        '/profile': (context) => const UserProfileScreen(),
       },
     );
   }
