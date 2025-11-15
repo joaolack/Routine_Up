@@ -21,7 +21,7 @@ O **RoutineUp** é um aplicativo desenvolvido em **Flutter** com backend em **Fi
 
 ```bash
 git clone https://github.com/joaolack/Routine_Up.git
-cd routineup
+cd Routine_Up
 ```
 ### 2) Instale as dependências
 ```bash
