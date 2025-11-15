@@ -1,16 +1,13 @@
-# routineup
+# RoutineUp – Aplicativo de Hábitos com Flutter + Firebase
 
-A new Flutter project.
+O **RoutineUp** é um aplicativo desenvolvido em **Flutter** com backend em **Firebase**, cujo objetivo é ajudar usuários a criarem, acompanharem e manterem hábitos diários.  
+O projeto foi desenvolvido como parte de um trabalho acadêmico, seguindo uma arquitetura organizada e boas práticas de desenvolvimento.
 
-## Getting Started
+## 🛠️ Tecnologias Utilizadas
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter** (SDK 3.x)
+- **Dart**
+- **Firebase Authentication**
+- **Firebase Firestore**
+- **Material Design 3**
+- **Arquitetura simples com Services e Models**
