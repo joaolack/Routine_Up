@@ -6,12 +6,12 @@ O **RoutineUp** é um aplicativo desenvolvido em **Flutter** com backend em **Fi
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Flutter** (SDK 3.x)
+- **Flutter** (SDK 3.9+)
 - **Dart**
 - **Firebase Authentication**
 - **Firebase Firestore**
-- **Material Design 3**
-- **Arquitetura simples com Services e Models**
+- **intl**
+- **cupertino_icons**
 
 ---
 

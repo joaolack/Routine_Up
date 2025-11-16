@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/firestore_service.dart';
 import '../models/habit.dart';
+import 'package:intl/intl.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -65,10 +66,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
   }
 
-  // 🚪 Logout
   Future<void> _logout() async {
   await FirebaseAuth.instance.signOut();
-
+  
     if (mounted) {
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -81,6 +81,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final completedCount = habits.where((h) => h.completedDays >= h.targetDays).length;
+
+    final createdAt = user.metadata.creationTime?.toLocal();
+    final formattedDate = createdAt != null
+      ? DateFormat('dd/MM/yyyy HH:mm:ss').format(createdAt)
+      : '---';
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -172,7 +177,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   children: [
                     const Text("Informações da Conta", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
-                    Text("Criada em: ${user.metadata.creationTime?.toLocal()}"),
+                    Text("Criada em: $formattedDate"),
                   ],
                 ),
               ),
